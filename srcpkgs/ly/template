@@ -1,0 +1,61 @@
+# Template file for 'ly'
+pkgname=ly
+version=0.5.0
+_version_argoat=36c41f09ecc2a10c9acf35e4194e08b6fa10cf45
+_version_configurator=c3e1ef175418ccb5b0981ae64ec6f5ae4a60fbaf
+_version_ctypes=5dd979d3644ab0c85ca14e72b61e6d3d238d432b
+_version_dragonfail=6b40d1f8b7f6dda9746e688666af623dfbcceb94
+_version_termbox_next=d3568927865c15d033d4096cb446d5a3628e2398
+revision=1
+#archs="i686 x86_64"
+#wrksrc="ly_${version}"
+#create_wrksrc=yes
+build_style=gnu-makefile
+#configure_args=""
+#make_build_args=""
+#make_install_args=""
+#conf_files=""
+#make_dirs="/var/log/dir 0755 root root"
+hostmakedepends="git"
+makedepends="pam-devel libxcb-devel"
+depends=""
+short_desc="TUI (ncurses-like) display manager"
+maintainer="Lukas Affolter <git@lukasach.dev>"
+license="WTFPL"
+homepage="https://github.com/cylgom/ly"
+distfiles="
+  https://github.com/cylgom/${pkgname}/archive/v${version}.tar.gz
+  https://github.com/cylgom/argoat/archive/${_version_argoat}.tar.gz>argoat-${_version_argoat}.tar.gz
+  https://github.com/cylgom/configator/archive/${_version_configator}.tar.gz>configator-${_version_configator}.tar.gz
+  https://github.com/cylgom/ctypes/archive/${_version_ctypes}.tar.gz>ctypes-${_version_ctypes}.tar.gz
+  https://github.com/cylgom/dragonfail/archive/${_version_dragonfail}.tar.gz>dragonfail-${_version_dragonfail}.tar.gz
+  https://github.com/cylgom/termbox_next/archive/${_version_termbox_next}.tar.gz>termbox_next-${_version_termbox_next}.tar.gz
+"
+checksum=
+
+
+#do_fetch() {
+#	git clone "https://github.com/cylgom/${pkgname}.git" "${pkgname}-${version}"
+#	cd ${pkgname}-${version}
+#	git checkout tags/v${version}
+#}
+
+
+post_fetch() {
+	make github
+}
+
+
+#do_install() {
+#	vbin bin/ly
+#	vmkdir etc/ly
+#	vcopy res/config.ini etc/ly
+#	vcopy res/wsetup.sh  etc/ly/
+#	vcopy res/xsetup.sh  etc/ly/
+#	vmkdir etc/ly/lang
+#	vcopy res/lang/*     etc/ly/lang
+#}
+
+post_install() {
+	vsv ly
+}
